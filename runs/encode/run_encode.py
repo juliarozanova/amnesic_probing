@@ -7,10 +7,13 @@ Options:
   --dry_run                     if used, not running the experiments, and just printing them
 
 """
-
+import sys
+import os
+from pathlib import Path
+HOME = os.getcwd()
+sys.path.append(HOME)
 from docopt import docopt
 from runs.ts_run import parallelize
-
 
 # ┌──────────────────────┐
 # │ connect to all nodes │
@@ -23,23 +26,30 @@ nodes = [
 # ┌──────────────────────┐
 # │ running combination  │
 # └──────────────────────┘
-
-runs_dic = {
-    'ontonotes': {
+runs_dic = { 'ontonotes': {
         'splits': ['train', 'dev', 'test'],
         'input_file': 'data/ontonotes/{}',
         'out_dir': 'data/ontonotes_output_{}/',
         'task_format': 'ontonotes',
         'encode_format': ['normal', 'masked'],
-    },
-    'ud': {
-        'splits': ['train', 'dev', 'test'],
-        'input_file': 'data/ud/en-universal-{}.conll',
-        'out_dir': 'data/ud_output_{}',
-        'task_format': 'conll',
-        'encode_format': ['normal', 'masked'],
-    },
+    }
 }
+
+# runs_dic = { 'ontonotes': {
+#         'splits': ['train', 'dev', 'test'],
+#         'input_file': 'data/ontonotes/{}',
+#         'out_dir': 'data/ontonotes_output_{}/',
+#         'task_format': 'ontonotes',
+#         'encode_format': ['normal', 'masked'],
+#     },
+#     'ud': {
+#         'splits': ['train', 'dev', 'test'],
+#         'input_file': 'data/ud/en-universal-{}.conll',
+#         'out_dir': 'data/ud_output_{}',
+#         'task_format': 'conll',
+#         'encode_format': ['normal', 'masked'],
+#     },
+# }
 
 if __name__ == '__main__':
     arguments = docopt(__doc__)

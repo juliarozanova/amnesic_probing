@@ -2,4 +2,7 @@ torch
 transformers
 docopt
 tensorboardX
+tensorboard
 wandb
+sklearn
+tqdm

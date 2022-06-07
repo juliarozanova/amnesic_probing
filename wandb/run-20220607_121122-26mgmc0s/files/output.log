@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "amnesic_probing/tasks/remove_property.py", line 107, in <module>
+    vecs_train, labels_train, sentences_train = read_files(arguments['--vecs'], arguments['--labels'],
+  File "/media/julia/Data/Code/PhD/amnesic_probing/amnesic_probing/tasks/utils.py", line 115, in read_files
+    vecs = np.load(vec_f, allow_pickle=True)
+  File "/home/julia/miniconda3/envs/nlp/lib/python3.8/site-packages/numpy/lib/npyio.py", line 440, in load
+    return format.read_array(fid, allow_pickle=allow_pickle,
+  File "/home/julia/miniconda3/envs/nlp/lib/python3.8/site-packages/numpy/lib/format.py", line 748, in read_array
+    array = pickle.load(fp, **pickle_kwargs)
+EOFError: Ran out of input

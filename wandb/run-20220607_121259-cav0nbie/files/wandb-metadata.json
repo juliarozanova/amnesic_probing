@@ -1,0 +1,40 @@
+{
+    "os": "Linux-5.13.0-44-generic-x86_64-with-debian-bullseye-sid",
+    "python": "3.7.11",
+    "heartbeatAt": "2022-06-07T11:13:00.497459",
+    "startedAt": "2022-06-07T11:12:59.528649",
+    "docker": null,
+    "gpu": "NVIDIA GeForce RTX 2070 SUPER",
+    "gpu_count": 1,
+    "cpu_count": 12,
+    "cuda": null,
+    "args": [
+        "--vecs",
+        "data/ontonotes_output_train/train/last_vec.npy",
+        "--labels",
+        "data/ontonotes_output_train/train/ner.pickle",
+        "--out_dir",
+        "deprobed/ner/",
+        "--n_cls",
+        "100",
+        "--task",
+        "ner",
+        "--input_dim",
+        "768",
+        "--balance_data",
+        "false",
+        "--wandb"
+    ],
+    "state": "running",
+    "program": "amnesic_probing/tasks/remove_property.py",
+    "codePath": "amnesic_probing/tasks/remove_property.py",
+    "git": {
+        "remote": "https://github.com/yanaiela/amnesic_probing.git",
+        "commit": "a96e3067a9f9918099015a7173c94830584bbe61"
+    },
+    "email": "juliarozanova@gmail.com",
+    "root": "/media/julia/Data/Code/PhD/amnesic_probing",
+    "host": "GLaDOS",
+    "username": "julia",
+    "executable": "/home/julia/miniconda3/envs/nlp37/bin/python"
+}

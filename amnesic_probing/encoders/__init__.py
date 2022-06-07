@@ -9,7 +9,7 @@ from transformers import BertTokenizer, BertForMaskedLM, BertConfig, RobertaToke
 
 from amnesic_probing.encoders.bert_encoding import lm_encoding, bert_based_encoding, \
     lm_masked_encoding, tokenize_and_preserve_labels
-from amnesic_probing.models.qa import BertForQuestionAnsweringDeprobe
+# from amnesic_probing.models.qa import BertForQuestionAnsweringDeprobe
 
 models = {
     'bert-base-uncased': {
@@ -30,15 +30,15 @@ models = {
         'lower': True,
         'mlm': True,
     },
-    'qa': {
-        'type': 'bert',
-        'name': 'deepset/bert-base-cased-squad2',
-        'tokenizer': BertTokenizer,
-        'model': BertForQuestionAnsweringDeprobe,
-        'config': BertConfig,
-        'lower': False,
-        'mlm': False,
-    },
+    # 'qa': {
+    #     'type': 'bert',
+    #     'name': 'deepset/bert-base-cased-squad2',
+    #     'tokenizer': BertTokenizer,
+    #     'model': BertForQuestionAnsweringDeprobe,
+    #     'config': BertConfig,
+    #     'lower': False,
+    #     'mlm': False,
+    # },
 }
 
 
@@ -119,7 +119,7 @@ def to_file(encoded_data, output_dir, only_last_layer):
                 X = np.array([x[layer] for x in vals])
                 np.save(output_dir + '/vec_layer:{}.npy'.format(layer), X)
         else:
-            np.save(output_dir + '/{}.npy'.format(name), np.array(vals))
+            np.save(output_dir + '/{}.npy'.format(name), np.array(vals, dtype='object'))
 
     for name, vals in encoded_data['labels'].items():
         with open(output_dir + '/{}.pickle'.format(name), 'wb') as f:

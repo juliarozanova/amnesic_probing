@@ -84,7 +84,7 @@ def rand_direction_control(x, n_coord):
 
     # and projecting the original data into that space (to remove random directions)
     x_rand_direction = rand_direction_p.dot(x.T).T
-    return x_rand_direction
+    return x_rand_direction, rand_direction_p
 
 
 def learn_cls(x_train, y_train, x_dev, y_dev):
@@ -136,14 +136,14 @@ def get_projection_matrix(num_clfs, x_train, y_train, x_dev, y_dev,
               'early_stopping': True}
     dim = x_train.shape[1]
 
-    P, _, _, all_projections, best_projection = get_debiasing_projection(clf, params, num_clfs, dim,
+    P, rowspace_projections, Ws, all_projections, best_projection = get_debiasing_projection(clf, params, num_clfs, dim,
                                                                          is_autoregressive=True,
                                                                          min_accuracy=majority_acc,
                                                                          X_train=x_train, Y_train=y_train,
                                                                          X_dev=x_dev, Y_dev=y_dev,
-                                                                         summary_writer=summary_writer)
-
-    return P, all_projections, best_projection
+                                                                         summary_writer=summary_writer
+                                                                         )
+    return P, rowspace_projections, Ws, all_projections, best_projection
 
 
 def get_regression_projection_matrix(num_clfs, x_train, y_train, x_dev, y_dev, dim, majority_acc, summary_writer=None):

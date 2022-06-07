@@ -101,9 +101,9 @@ def get_debiasing_projection(classifier_class, cls_params: Dict, num_classifiers
         clf = classifier.SKlearnClassifier(classifier_class(**cls_params))
         acc = clf.train_network(X_train_cp, Y_train, X_dev_cp, Y_dev)
         pbar.set_description("iteration: {}, accuracy: {}".format(i, acc))
-        if summary_writer is not None:
-            summary_writer.add_scalar('dev_acc', acc, i)
-            wandb.log({'dev_acc': acc}, step=i)
+        # if summary_writer is not None:
+        #     summary_writer.add_scalar('dev_acc', acc, i)
+        wandb.log({'dev_acc': acc}, step=i)
 
         if iters_under_threshold >= 3:
             print('3 iterations under the minimum accuracy.. stopping the process')
@@ -118,8 +118,8 @@ def get_debiasing_projection(classifier_class, cls_params: Dict, num_classifiers
         else:
             iters_no_change = 0
 
-        if iters_no_change >= 3:
-            print('3 iterations with no accuracy change.. topping the process')
+        if iters_no_change >= 5:
+            print('5 iterations with no accuracy change.. stopping the process')
             break
         prev_acc = acc
 
@@ -171,10 +171,9 @@ def get_debiasing_projection_by_cls(classifier_class, cls_params: Dict, num_clas
                                     is_autoregressive: bool,
                                     min_accuracy: float, X_train: np.ndarray, Y_train: np.ndarray, X_dev: np.ndarray,
                                     Y_dev: np.ndarray, by_class=True, Y_train_main=None,
-                                    Y_dev_main=None, dropout_rate=0, summary_writer=None) -> (
-        np.ndarray, list, list, list, tuple):
+                                    Y_dev_main=None, dropout_rate=0, summary_writer=None) -> (np.ndarray, list, list, list, tuple):
     """
-    :param classifier_class: the sklearn classifier class (SVM/Perceptron etc.)
+    :param classifier_class: the sklearn clasifier class (SVM/Perceptron etc.)
     :param cls_params: a dictionary, containing the params for the sklearn classifier
     :param num_classifiers: number of iterations (equivalent to number of dimensions to remove)
     :param input_dim: size of input vectors
@@ -233,7 +232,7 @@ def get_debiasing_projection_by_cls(classifier_class, cls_params: Dict, num_clas
                                        .format(i, acc, i, maj))
             if summary_writer is not None:
                 summary_writer.add_scalar('dev_acc', acc, i)
-                wandb.log({'dev_acc': acc}, step=i)
+            wandb.log({'dev_acc': acc}, step=i)
 
             # if acc < min_accuracy: continue
             if abs(maj - acc) <= 0.005:
