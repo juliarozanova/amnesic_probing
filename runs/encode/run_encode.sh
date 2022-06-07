@@ -1,4 +1,4 @@
-AMNESIC_PATH="./amnesic_probing/"
+AMNESIC_PATH="."
 cd $AMNESIC_PATH
 export PYTHONPATH=$AMNESIC_PATH
 
