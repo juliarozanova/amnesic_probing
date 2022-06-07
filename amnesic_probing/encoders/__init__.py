@@ -30,15 +30,15 @@ models = {
         'lower': True,
         'mlm': True,
     },
-    'qa': {
-        'type': 'bert',
-        'name': 'deepset/bert-base-cased-squad2',
-        'tokenizer': BertTokenizer,
-        'model': BertForQuestionAnsweringDeprobe,
-        'config': BertConfig,
-        'lower': False,
-        'mlm': False,
-    },
+    # 'qa': {
+    #     'type': 'bert',
+    #     'name': 'deepset/bert-base-cased-squad2',
+    #     'tokenizer': BertTokenizer,
+    #     'model': BertForQuestionAnsweringDeprobe,
+    #     'config': BertConfig,
+    #     'lower': False,
+    #     'mlm': False,
+    # },
 }
 
 
