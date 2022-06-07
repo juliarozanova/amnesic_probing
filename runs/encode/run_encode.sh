@@ -9,7 +9,7 @@ encode_format=$5
 device=$6
 
 
-python amnesic_probing/amnesic_probing/encoders/encode.py \
+python amnesic_probing/encoders/encode.py \
         --input_file $input_file  \
         --output_dir $output_dir/$split/ \
         --encoder bert-base-uncased \
