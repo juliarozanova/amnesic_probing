@@ -9,7 +9,7 @@ from transformers import BertTokenizer, BertForMaskedLM, BertConfig, RobertaToke
 
 from amnesic_probing.encoders.bert_encoding import lm_encoding, bert_based_encoding, \
     lm_masked_encoding, tokenize_and_preserve_labels
-from amnesic_probing.models.qa import BertForQuestionAnsweringDeprobe
+# from amnesic_probing.models.qa import BertForQuestionAnsweringDeprobe
 
 models = {
     'bert-base-uncased': {
