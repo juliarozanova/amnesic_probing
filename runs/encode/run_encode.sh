@@ -1,9 +1,8 @@
-AMNESIC_PATH="/home/julia/Code/PhD/amnesic_probing"
+AMNESIC_PATH="PATH-TO-AMNESIC-PROBING"
 cd $AMNESIC_PATH
 export PYTHONPATH=$AMNESIC_PATH
 
-split=$1
-input_file=$2
+split=$1 input_file=$2
 output_dir=$3
 task_format=$4
 encode_format=$5
