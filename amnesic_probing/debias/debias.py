@@ -105,8 +105,8 @@ def get_debiasing_projection(classifier_class, cls_params: Dict, num_classifiers
         #     summary_writer.add_scalar('dev_acc', acc, i)
         wandb.log({'dev_acc': acc}, step=i)
 
-        if iters_under_threshold >= 8:
-            print('8 iterations under the minimum accuracy.. stopping the process')
+        if iters_under_threshold >= 3:
+            print('3 iterations under the minimum accuracy.. stopping the process')
             break
 
         if acc <= min_accuracy and best_projection is not None:

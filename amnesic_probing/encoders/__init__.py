@@ -74,60 +74,6 @@ def get_pretrained_models(model_type):
     return model.eval(), tokenizer
 
 
-# def batch_encode_save(data, encoder, tokenizer, output_dir, masked=False, only_last_layer=True):
-#     encoded_vectors = defaultdict(list)
-#     encoded_labels = defaultdict(list)
-
-#     if not os.path.isdir(output_dir):
-#         print('creating dir ', output_dir)
-#         os.makedirs(output_dir)
-
-#     step = 0
-#     for i, datum in enumerate(tqdm(data)):
-#         tokens = datum['text']
-
-#         if type(encoder) in [BertForMaskedLM, RobertaForMaskedLM]:
-#             if masked:
-#                 last_vecs, rep_vecs = lm_masked_encoding(' '.join(tokens), encoder, tokenizer,
-#                                                          only_last_layer=only_last_layer)
-
-#             else:
-#                 last_vecs, rep_vecs = lm_encoding(' '.join(tokens), encoder, tokenizer, only_last_layer=only_last_layer)
-
-#             encoded_vectors['last_vec'].append(last_vecs)
-#             encoded_vectors['rep_vec'].append(rep_vecs)
-#         else:
-#             rep_vecs = bert_based_encoding(' '.join(tokens), encoder, tokenizer)
-#             encoded_vectors['rep_vec'].append(rep_vecs)
-
-#         # going over all labels that were collected from the dataset
-#         for label_name, labels in datum['labels'].items():
-#             tok_sen, tok_label = tokenize_and_preserve_labels(tokens, labels, tokenizer)
-#             encoded_labels[label_name].append(tok_label)
-
-#         # tok_sen are the tokens of the current sentence. It doesn't change over the previous loop
-#         # therefore the last one equals all the rest (it assumes that there's at least one label)
-#         encoded_labels['tokens'].append(tok_sen)
-#         if step % 10000 == 0:
-#             step = 0
-
-
-#     # return {'vectors': encoded_vectors, 'labels': encoded_labels}
-
-#         for name, vals in encoded_data['vectors'].items():
-
-#             if name == "rep_vec" and not only_last_layer:
-#                 for layer in range(len(vals[0])):
-#                     X = np.array([x[layer] for x in vals])
-#                     np.save(output_dir + '/vec_layer:{}.npy'.format(layer), X)
-#             else:
-#                 np.save(output_dir + '/{}.npy'.format(name), np.array(vals, dtype='object'))
-
-#         for name, vals in encoded_data['labels'].items():
-#             with open(output_dir + '/{}.pickle'.format(name), 'wb') as f:
-#                 pickle.dump(vals, f)
-
-
 def encode_text(data, encoder, tokenizer, masked=False, only_last_layer=True):
     encoded_vectors = defaultdict(list)
     encoded_labels = defaultdict(list)

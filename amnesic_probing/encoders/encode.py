@@ -17,15 +17,11 @@ Options:
 from docopt import docopt
 
 from amnesic_probing.encoders import get_pretrained_models, encode_text, to_file, read_conll_format, read_onto_notes_format, \
-    read_sem_tagging_format, read_coarse_sem_tagging_format, read_fce_format, read_coord_format#, batch_encode_save
+    read_sem_tagging_format, read_coarse_sem_tagging_format, read_fce_format, read_coord_format
 
-if __name__ == '__main__':
-    arguments = docopt(__doc__)
-    only_last_layer = True #not arguments["--all_layers"]
-    print("only last layer:", only_last_layer)
-    
+def do_encoding(arguments):
     encoder, tokenizer = get_pretrained_models(arguments['--encoder'])
-    # encoder = encoder.to(arguments['--device'])
+        # encoder = encoder.to(arguments['--device'])
     encoder = encoder.to(arguments['--device'])
 
     data_format = arguments['--format']
@@ -45,18 +41,20 @@ if __name__ == '__main__':
     else:
         raise Exception('Unsupported file format exception')
 
-    single_encode(data, encoder, tokenizer, only_last_layer)
-    # batch_encode(data, encoder, tokenizer, only_last_layer)
-
-# def batch_encode(data, encoder, tokenizer, arguments, only_last_layer):
-#     batch_encode_save(data, encoder, tokenizer, arguments['--output_dir'], masked=False, only_last_layer=only_last_layer)
-
-def single_encode(data, encoder, tokenizer, arguments, only_last_layer):
     if arguments['--encode_format'] == 'normal':
         final_data = encode_text(data, encoder, tokenizer, masked=False, only_last_layer=only_last_layer)
     elif arguments['--encode_format'] == 'masked':
         final_data = encode_text(data, encoder, tokenizer, masked=True, only_last_layer=only_last_layer)
     else:
         raise Exception('Unsupported encoding type')
+
+    return final_data
+
+if __name__ == '__main__':
+    arguments = docopt(__doc__)
+    only_last_layer = True #not arguments["--all_layers"]
+    print("only last layer:", only_last_layer)
+    
+    final_data = do_encoding(arguments)
 
     to_file(final_data, arguments['--output_dir'], only_last_layer=only_last_layer)
